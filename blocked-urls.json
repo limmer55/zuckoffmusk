@@ -1,8 +1,16 @@
 {
-    "blocked": [
-      "*://*.twitter.com/*",
-      "*://twitter.com/*",
-      "*://*.x.com/*",
-      "*://x.com/*"
-    ]
-  }
+  "blocked": [
+    "*://*.twitter.com/*",
+    "*://twitter.com/*",
+    "*://*.x.com/*",
+    "*://x.com/*",
+    "*://*.facebook.com/*",
+    "*://facebook.com/*",
+    "*://*.instagram.com/*",
+    "*://instagram.com/*",
+    "*://*.whatsapp.com/*",
+    "*://whatsapp.com/*",
+    "*://*.meta.com/*",
+    "*://meta.com/*"
+  ]
+}

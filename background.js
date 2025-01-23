@@ -6,11 +6,11 @@ let isBlockingEnabled = true;
 let blockedUrls = [];
 
 /*******************************
- * loads the blocked URLs from blocked-urls.json.
+ * loads the blocked URLs from a remote URL.
  *******************************/
 async function loadBlockedUrls() {
   try {
-    const response = await fetch(chrome.runtime.getURL("blocked-urls.json"));
+    const response = await fetch("https://raw.githubusercontent.com/limmer55/zuckoffmusk/main/blocked-urls.json"); // URL der blockierten URLs
     const data = await response.json();
     blockedUrls = data.blocked || [];
   } catch (error) {
