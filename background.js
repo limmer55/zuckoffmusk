@@ -10,7 +10,7 @@ let blockedUrls = [];
  *******************************/
 async function loadBlockedUrls() {
   try {
-    const response = await fetch("https://raw.githubusercontent.com/limmer55/zuckoffmusk/main/blocked-urls.json"); // URL der blockierten URLs
+    const response = await fetch("https://raw.githubusercontent.com/limmer55/zuckoffmusk/main/blocked-urls.json");
     const data = await response.json();
     blockedUrls = data.blocked || [];
   } catch (error) {
@@ -46,7 +46,6 @@ function updateBlockingRules() {
 async function init() {
   await loadBlockedUrls();
   updateBlockingRules();
-  // Ensure the icon is updated based on the initial blocking state
   updateIcon();
 }
 
@@ -61,7 +60,6 @@ function toggleBlocking() {
   } else {
     chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds: blockedUrls.map((_, i) => i + 1) });
   }
-  // Ensure the icon is updated immediately
   updateIcon();
 }
 
