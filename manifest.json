@@ -5,8 +5,7 @@
   "manifest_version": 3,
   "permissions": [
     "storage",
-    "declarativeNetRequest",
-    "https://raw.githubusercontent.com/*"
+    "declarativeNetRequest"
   ],
   "host_permissions": [
     "<all_urls>"
