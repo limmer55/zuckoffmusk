@@ -4,20 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
      * such as "*://*.x.com/*" and return "x.com".
      */
     function simplifyPattern(pattern) {
-      // Step 1: Remove the prefix "*://"
-      pattern = pattern.replace(/^(\*:\/\/)/, "");
-  
-      // Step 2: Remove the trailing "/*"
-      pattern = pattern.replace(/\/\*$/, "");
-  
-      // Step 3: Remove the prefix "*."
-      pattern = pattern.replace(/^\*\./, "");
-  
-      // Step 4: Remove "www." if present
-      pattern = pattern.replace(/^www\./, "");
-  
-      return pattern;
-    }
+        return pattern
+          .replace(/^(\*:\/\/|\*\.|www\.)/, "") // Removes "*://", "*." and "www."
+          .replace(/\/\*$/, ""); // Removes the trailing "/*"
+      }     
   
     // Get the wildcard pattern from the URL query parameter (?url=...)
     const urlParams = new URLSearchParams(window.location.search);
@@ -34,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.runtime.sendMessage({ action: "getBlockCount" }, (response) => {
       if (response && typeof response.blockCount === "number") {
         document.getElementById("blockCount").textContent =
-          `We have prevented generating traffic to Meta or Twitter/X ${response.blockCount} pages times.`;
+          `We have prevented generating traffic to Twitter/X or Meta pages ${response.blockCount} times.`;
       }
     });
   });
