@@ -25,7 +25,7 @@ function updateBlockingRules() {
   const rules = blockedUrls.map((pattern, i) => ({
     id: i + 1,
     priority: 1,
-    action: { type: "block" },
+    action: { type: "redirect", redirect: { url: chrome.runtime.getURL("blocked.html") } },
     condition: { urlFilter: pattern, resourceTypes: ["main_frame"] }
   }));
   chrome.declarativeNetRequest.updateDynamicRules({

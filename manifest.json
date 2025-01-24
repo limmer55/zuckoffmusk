@@ -26,5 +26,11 @@
     "32": "icons/icon-off.png",
     "48": "icons/icon-off.png",
     "128": "icons/icon-off.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
