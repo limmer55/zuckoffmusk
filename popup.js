@@ -22,10 +22,3 @@ chrome.runtime.sendMessage({ action: "checkStatus" }, (response) => {
     updateUI(response.isBlockingEnabled);
   }
 });
-
-// Listen for updates to the block count
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "updateBlockCount") {
-    document.getElementById('blockCount').textContent = `Blocked pages: ${message.count}`;
-  }
-});
