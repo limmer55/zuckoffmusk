@@ -1,5 +1,3 @@
-![Banner](images/banner.png)
-
 **Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.**
 
 ![Banner](images/screenshot.png)
