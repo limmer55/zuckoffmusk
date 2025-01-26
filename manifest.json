@@ -1,7 +1,7 @@
 {
-  "name": "Zuck Off Musk",
+  "name": "Zuck Off! Musk",
   "version": "1.0",
-  "description": "Block the billionaires! Visit https://github.com/limmer55/zuckoffmusk",
+  "description": "Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.",
   "manifest_version": 3,
   "permissions": [
     "storage",

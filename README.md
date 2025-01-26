@@ -1,5 +1,5 @@
-# Zuck Off Musk - a twitter/x and meta blocker
-**This Chrome extension blocks access to meta and twitter/x.**
+# Zuck Off! Musk - a twitter/x and meta blocker
+**Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.**
 
 ## Installation
 

@@ -5,8 +5,9 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f8d7da;
+  background-color: #ffffff;
   color: #721c24;
+  position: relative;
 }
 
 .container {
@@ -19,4 +20,12 @@ h1 {
 
 p {
   font-size: 1rem;
+}
+
+.banner {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: auto;
+  height: 100px;
 }
