@@ -1,5 +1,20 @@
-# Zuck Off! Musk - a twitter/x and meta blocker
+<div style="display: flex; align-items: center;">
+  <img src="images/banner.png" width="200" />
+  <h1> a twitter/x and meta blocker</h1>
+</div>
+
 **Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.**
+
+![Banner](images/screenshot.png){ width=600 }
+
+## What / Why?
+Some Reddit subs start to ban links to Twitter/X.
+I really like the idea to reduce traffic to Musks and Zucks platforms.
+This extension helps in case you missclick a link.
+
+## How?
+It checks if a site you’re about to visit matches a specific pattern and rewrites the URL to redirect you to the blocking page.
+No data is sent to any server.
 
 ## Installation
 
