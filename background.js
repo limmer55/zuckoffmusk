@@ -4,26 +4,6 @@ let isBlockingEnabled = true;
 // List of blocked URL patterns
 let blockedUrls = [];
 
-// Counter for blocked pages
-let blockCount = 0;
-
-/*******************************
- * Load block count from Chrome storage.
- *******************************/
-async function loadBlockCountFromStorage() {
-  const result = await chrome.storage.local.get("blockCount");
-  if (typeof result.blockCount === "number") {
-    blockCount = result.blockCount;
-  }
-}
-
-/*******************************
- * Save block count to Chrome storage.
- *******************************/
-function saveBlockCountToStorage() {
-  chrome.storage.local.set({ blockCount });
-}
-
 /*******************************
  * Load blocked URL patterns from an external JSON file.
  *******************************/
@@ -52,7 +32,10 @@ function updateBlockingRules() {
   const rules = blockedUrls.map((pattern, i) => ({
     id: i + 1,
     priority: determinePriority(pattern),
-    action: { type: "redirect", redirect: { url: chrome.runtime.getURL("blocked.html") } },
+    action: { 
+      type: "redirect", 
+      redirect: { url: `${chrome.runtime.getURL("blocked.html")}?url=${encodeURIComponent(pattern)}` }
+    },
     condition: { urlFilter: pattern, resourceTypes: ["main_frame"] },
   }));
 
@@ -78,8 +61,13 @@ function toggleBlocking() {
   if (isBlockingEnabled) {
     updateBlockingRules();
   } else {
+    // Remove all dynamic rules
     chrome.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: blockedUrls.map((_, i) => i + 1)
+    }, () => {
+      if (chrome.runtime.lastError) {
+        console.error("Error removing rules:", chrome.runtime.lastError);
+      }
     });
   }
 }
@@ -92,40 +80,6 @@ function updateIcon() {
   chrome.action.setIcon({ path: iconPath });
 }
 
-/********************************************************************
- * Track when each domain was last blocked to limit counting frequency.
- ********************************************************************/
-let domainLastBlockedTime = {};
-const TIME_WINDOW = 1000; // 1 second
-
-/*******************************
- * Listener for rule matches.
- *******************************/
-chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((info) => {
-  if (!isBlockingEnabled) return;
-
-  let urlObj;
-  try {
-    urlObj = new URL(info.request.url);
-  } catch (err) {
-    console.error("URL parsing error:", err);
-    return;
-  }
-
-  const domain = urlObj.hostname.replace(/^www\./, "");
-  const now = Date.now();
-  const lastTime = domainLastBlockedTime[domain] || 0;
-
-  if (now - lastTime > TIME_WINDOW) {
-    blockCount++;
-    saveBlockCountToStorage();
-    domainLastBlockedTime[domain] = now;
-    console.log(`Blocked pages: ${blockCount} (Domain: ${domain})`);
-  } else {
-    console.log(`Domain "${domain}" was blocked less than ${TIME_WINDOW}ms ago. Ignored.`);
-  }
-});
-
 /*******************************
  * Message listener for popup.js actions.
  *******************************/
@@ -135,10 +89,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ isBlockingEnabled });
   } else if (request.action === "checkStatus") {
     sendResponse({ isBlockingEnabled });
-  } else if (request.action === "getBlockCount") {
-    sendResponse({ blockCount });
   }
-  return true; // Allow async sendResponse
+  return true;
 });
 
 /*******************************
@@ -152,34 +104,9 @@ chrome.action.onClicked.addListener(() => {
  * Initialization function.
  *******************************/
 async function init() {
-  await loadBlockCountFromStorage();
   await loadBlockedUrls();
   updateBlockingRules();
   updateIcon();
 }
-
-function updateBlockingRules() {
-  const rules = blockedUrls.map((pattern, i) => ({
-    id: i + 1,
-    priority: determinePriority(pattern),
-    action: { 
-      type: "redirect", 
-      redirect: { url: `${chrome.runtime.getURL("blocked.html")}?url=${encodeURIComponent(pattern)}` } 
-    },
-    condition: { urlFilter: pattern, resourceTypes: ["main_frame"] },
-  }));
-
-  chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: rules.map(r => r.id),
-    addRules: rules
-  }, () => {
-    if (chrome.runtime.lastError) {
-      console.error("Error updating rules:", chrome.runtime.lastError);
-    } else {
-      console.log("Blocking rules updated:", rules);
-    }
-  });
-}
-
 
 init();

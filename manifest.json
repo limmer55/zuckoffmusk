@@ -1,6 +1,6 @@
 {
   "name": "Zuck Off! Musk",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.",
   "manifest_version": 3,
   "permissions": [
