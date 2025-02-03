@@ -4,7 +4,6 @@
   "description": "Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.",
   "manifest_version": 3,
   "permissions": [
-    "storage",
     "declarativeNetRequest",
     "declarativeNetRequestFeedback"
   ],
