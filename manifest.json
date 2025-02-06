@@ -1,7 +1,7 @@
 {
-  "name": "Zuck Off! Musk",
+  "name": "Zuck Off! Musk - Block Musk & Zuckerberg",
   "version": "1.1",
-  "description": "Blocks all traffic to Musks Twitter/X and Zuckerbergs meta sites.",
+  "description": "Block traffic to Elon Musk’s X (Twitter) and Mark Zuckerberg’s Meta platforms.",
   "manifest_version": 3,
   "permissions": [
     "declarativeNetRequest",
